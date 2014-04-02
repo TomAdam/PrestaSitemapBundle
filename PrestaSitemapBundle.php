@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Presta\SitemapBundle\DependencyInjection\Compiler\AddSitemapListenersPass;
+use Presta\SitemapBundle\DependencyInjection\Compiler\InjectCacheServicePass;
 
 /**
  * Bundle that provides tools to render application sitemap according to 
@@ -28,6 +29,7 @@ class PrestaSitemapBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new InjectCacheServicePass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new AddSitemapListenersPass(), PassConfig::TYPE_OPTIMIZE);
     }
 }

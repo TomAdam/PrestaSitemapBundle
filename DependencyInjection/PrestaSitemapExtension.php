@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -37,10 +38,10 @@ class PrestaSitemapExtension extends Extension
         $container->setParameter($this->getAlias().'.timetolive', $config['timetolive']);
         $container->setParameter($this->getAlias().'.sitemap_file_prefix', $config['sitemap_file_prefix']);
         $container->setParameter($this->getAlias().'.dumper_base_url', $config['dumper_base_url']);
+        $container->setParameter($this->getAlias().'.cache_service',  $config['cache_service']);
 
         if (true === $config['route_annotation_listener']) {
             $loader->load('route_annotation_listener.xml');
         }
-
     }
 }

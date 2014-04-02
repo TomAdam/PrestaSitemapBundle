@@ -30,19 +30,25 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('presta_sitemap');
 
-        $rootNode->children()
-                    ->scalarNode('timetolive')
-                        ->defaultValue('3600')
-                    ->end()
-                    ->scalarNode('sitemap_file_prefix')
-                        ->defaultValue(self::DEFAULT_FILENAME)
-                        ->info('Sets sitemap filename prefix defaults to "sitemap" -> sitemap.xml (for index); sitemap.<section>.xml(.gz) (for sitemaps)')
-                    ->end()
-                    ->scalarNode('dumper_base_url')
-                        ->defaultValue('http://localhost/')
-                        ->info('Deprecated: please use host option in command. Used for dumper command. Default host to use if host argument is missing')
-                    ->end()
-                    ->scalarNode('route_annotation_listener')->defaultTrue()->end()
+        $rootNode
+            ->children()
+                ->scalarNode('timetolive')
+                    ->defaultValue('3600')
+                ->end()
+                ->scalarNode('sitemap_file_prefix')
+                    ->defaultValue(self::DEFAULT_FILENAME)
+                    ->info('Sets sitemap filename prefix defaults to "sitemap" -> sitemap.xml (for index); sitemap.<section>.xml(.gz) (for sitemaps)')
+                ->end()
+                ->scalarNode('dumper_base_url')
+                    ->defaultValue('http://localhost/')
+                    ->info('Deprecated: please use host option in command. Used for dumper command. Default host to use if host argument is missing')
+                ->end()
+                ->scalarNode('route_annotation_listener')->defaultTrue()->end()
+                ->scalarNode('cache_service')
+                    ->defaultNull()
+                    ->info('Provide a Doctrine Cache compatible service for caching. Defaults to "doctrine_cache.providers.presta_sitemap".')
+                ->end()
+            ->end()
         ;
 
         return $treeBuilder;
